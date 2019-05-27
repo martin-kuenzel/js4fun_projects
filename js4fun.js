@@ -65,6 +65,9 @@ Number.prototype.pow = function(x){ return Math.pow( this, x ); }
 
 Number.prototype.floor_rad = function(i){ let o=this; o -= ( o - (o % 90) );
 
+Math.sum = function(...args){ let ret = 0; for(arg of args) ret += (typeof arg == "number" ? arg : 0); return ret; };
+Math.prod = function(...args){ let ret = 1; for(arg of args) ret *= (typeof arg == "number" ? arg : 1); return ret; };
+
 // shortcut to Math.pow(a,b)
 let POW = (a,b) => { Math.pow(a,b); }
 
