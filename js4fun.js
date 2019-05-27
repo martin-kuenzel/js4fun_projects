@@ -30,6 +30,9 @@ Array.prototype.shuffle = function(times=1){
 // general shortcutting //
 let dqs = (q) => document.querySelector(q);
 let dqsa = (q) => document.querySelectorAll(q);
+let dsid = (q)=>document.getElementById(q);
+let dscn = (q)=>document.getElementsByClassName(q);
+let dstn = (q) => document.getElementsByTagName(q);
 
 Node.prototype.prev = function(){return this.previousElementSibling;}
 Node.prototype.next = function(){return this.nextElementSibling;}
