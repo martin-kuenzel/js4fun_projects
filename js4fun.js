@@ -61,9 +61,9 @@ Number.prototype.tan = function(){return Math.tan(this);};
 Number.prototype.atan = function(){return Math.atan(this);};
 Number.prototype.acos = function(){return Math.acos(1/this);};
 Number.prototype.asin = function(){return Math.asin(1/this);};
-Number.prototype.pow = function(x){ return Math.pow( this, x ); }
+Number.prototype.pow = function(x){return Math.pow( this, x );};
 
-Number.prototype.floor_rad = function(i){ let o=this; o -= ( o - (o % 90) );
+Number.prototype.floor_rad = function(i){ let o=this; o -= ( o - (o % 90) ); return o; }
 
 Math.sum = function(...args){ let ret = 0; for(arg of args) ret += (typeof arg == "number" ? arg : 0); return ret; };
 Math.prod = function(...args){ 
