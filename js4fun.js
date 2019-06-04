@@ -81,5 +81,5 @@ let POW = (a,b) => { Math.pow(a,b); }
 let getKreisUmfang = (r) => { return 2 * Math.PI * r; }
 
 // Pythagoras: (a²+b²) = (c²)
-let getPythagoras = (a,b) => { return (a.quad() * b.quad()).sqr() }
+let getPythagoras = (a,b) => { return (a.quad() + b.quad()).sqr() }
 
