@@ -54,14 +54,16 @@ NodeList.prototype.filter = HTMLCollection.prototype.filter = function(func){ re
 // shortcuts eg. (9).quad() == Math.pow(9,2)
 Number.prototype.quad = function(){return Math.pow(this,2);};
 Number.prototype.sqr = function(){return Math.sqrt(this,2);};
+
 Number.prototype.abs = function(){return Math.abs(this);};
 Number.prototype.cos = function(){return Math.cos(this);};
 Number.prototype.sin = function(){return Math.sin(this);};
 Number.prototype.tan = function(){return Math.tan(this);};
 Number.prototype.atan = function(){return Math.atan(this);};
-Number.prototype.acos = function(){return Math.acos(1/this);};
-Number.prototype.asin = function(){return Math.asin(1/this);};
-Number.prototype.pow = function(x){return Math.pow( this, x );};
+Number.prototype.acos = function(){return Math.acos(this);};
+Number.prototype.asin = function(){return Math.asin(this);};
+
+Number.prototype.pow = function(x=1){x=(x?`${x}`.replace(/[^0-9]/g,''):1);x=(x.length<1?1:Number(x));x=isNaN(x)?1:x; return Math.pow(this,x);};
 
 Number.prototype.floor_rad = function(i){ let o=this; o -= ( o - (o % 90) ); return o; }
 
@@ -73,13 +75,13 @@ Math.prod = function(...args){
 };
 
 // shortcut to Math.pow(a,b)
-let POW = (a,b) => { Math.pow(a,b); }
+let POW = (a,b) => Math.pow(a,b);
 
 // other geometry funcs //
 
 // Umfang: u = 2·π·r
-let getKreisUmfang = (r) => { return 2 * Math.PI * r; }
+let getKreisUmfang = r => 2 * Math.PI * r;
 
 // Pythagoras: (a²+b²) = (c²)
-let getPythagoras = (a,b) => { return (a.quad() + b.quad()).sqr() }
+let getPythagoras = (a,b) => (a.quad() + b.quad()).sqr();
 
