@@ -23,7 +23,7 @@ Array.prototype.shuffle = function(times=1){
   this.reverse().map((x,i)=>{ 
     if( Math.random()>.5 ) o.push(x); else o.unshift(x); 
   }); 
-  if ( times > 0 ) o = o.shuffle(times-1); 
+  if ( times > 0 ) o = o.shuffle(--times); 
   return o; 
 }; 
 
@@ -69,8 +69,8 @@ Number.prototype.floor_rad = function(i){ let o=this; o -= ( o - (o % 90) ); ret
 
 Math.sum = function(...args){ let ret = 0; for(arg of args) ret += (typeof arg == "number" ? arg : 0); return ret; };
 Math.prod = function(...args){ 
-  let ret = 0; 
-  Array.from(args).filter( x => ( typeof x == "number" ) ).forEach( x => ret = (ret<1?1:ret) * x ); 
+  let ret; 
+  Array.from(args).filter( x => ( typeof x == "number" ) ).forEach( x => ret = (!ret?1:ret) * x ); 
   return ret;
 };
 
