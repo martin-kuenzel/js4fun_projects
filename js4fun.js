@@ -65,7 +65,7 @@ Number.prototype.asin = function(){return Math.asin(this);};
 
 Number.prototype.pow = function(x=1){x=(x?`${x}`.replace(/[^0-9]/g,''):1);x=(x.length<1?1:Number(x));x=isNaN(x)?1:x; return Math.pow(this,x);};
 
-Number.prototype.floor_rad = function(i){ let o=this; o -= ( o - (o % 90) ); return o; }
+Number.prototype.floor_rad = function(){ let o = this; o -= ( o - (o % 90) ); return o; }
 
 Math.sum = function(...args){ let ret = 0; for(arg of args) ret += (typeof arg == "number" ? arg : 0); return ret; };
 Math.prod = function(...args){ 
@@ -84,4 +84,31 @@ let getKreisUmfang = r => 2 * Math.PI * r;
 
 // Pythagoras: (a²+b²) = (c²)
 let getPythagoras = (a,b) => (a.quad() + b.quad()).sqr();
+
+
+class Phys extends Number {
+    static atomic_mass            = new this( 1.66055,   -27, 'kg');
+    static avogadro_number        = new this( 6.02205,    26, 'kmol⁻¹');
+    static boltzmann_const        = new this( 1.38066,   -23, 'JK⁻¹');
+    static elemental_charge       = new this( 1.602189,  -19, 'As');
+    static gas_const              = new this( 8314.3,      0, 'JK⁻¹kmol⁻¹');
+    static grav_const             = new this( 6.672,     -11, 'Nm²kg⁻²');
+    static induction_const        = new this( 1.2566,    - 6, 'VsA⁻¹m⁻¹');
+    static dielectric_const       = new this( 8.8542,    -12, 'AsV⁻¹m⁻¹');
+    static lightspeed_vacuum      = new this( 299792458,   0, 'ms⁻¹');
+    static electron_mass          = new this( 9.10953,   -31, 'kg');
+    static neutron_mass           = new this( 1.67482,   -27, 'kg');
+    static proton_mass            = new this( 1.67261,   -27, 'kg');
+    static planck_const           = new this( 6.626176,  -34, 'Js');
+    static stefan_boltzmann_const = new this( 5.6073,    - 8, 'Wm⁻²K⁻⁴');
+
+    unit = ''
+    constructor(value = 0, decimal_precision = 0, unit=''){
+        super(value || 0);
+        this.unit = unit || '';
+        this.decimal_precision = decimal_precision;
+    }
+}
+
+
 
