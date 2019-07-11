@@ -52,7 +52,7 @@ NodeList.prototype.filter = HTMLCollection.prototype.filter = function(func){ re
 // MATHEMATICAL STUFF //
 
 // shortcuts eg. (9).quad() == Math.pow(9,2)
-Number.prototype.quad = function(){return Math.pow(this,2);};
+//Number.prototype.quad = function(){return Math.pow(this,2);}; // ( Not needed anymore because one can do (a ** 2) )
 Number.prototype.sqr = function(){return Math.sqrt(this,2);};
 
 Number.prototype.abs = function(){return Math.abs(this);};
@@ -63,7 +63,8 @@ Number.prototype.atan = function(){return Math.atan(this);};
 Number.prototype.acos = function(){return Math.acos(this);};
 Number.prototype.asin = function(){return Math.asin(this);};
 
-Number.prototype.pow = function(x=1){x=(x?`${x}`.replace(/[^0-9]/g,''):1);x=(x.length<1?1:Number(x));x=isNaN(x)?1:x; return Math.pow(this,x);};
+// ( Not needed anymore because one can do (a ** 2) )
+// Number.prototype.pow = function(x=1){x=(x?`${x}`.replace(/[^0-9]/g,''):1);x=(x.length<1?1:Number(x));x=isNaN(x)?1:x; return Math.pow(this,x);};
 
 Number.prototype.floor_rad = function(){ let o = this; o -= ( o - (o % 90) ); return o; }
 
@@ -74,8 +75,8 @@ Math.prod = function(...args){
   return ret;
 };
 
-// shortcut to Math.pow(a,b)
-let POW = (a,b) => Math.pow(a,b);
+// shortcut to Math.pow(a,b) ( Not needed anymore because one can do (a ** b) )
+//let POW = (a,b) => Math.pow(a,b);
 
 // other geometry funcs //
 
@@ -83,32 +84,32 @@ let POW = (a,b) => Math.pow(a,b);
 let getKreisUmfang = r => 2 * Math.PI * r;
 
 // Pythagoras: (a²+b²) = (c²)
-let getPythagoras = (a,b) => (a.quad() + b.quad()).sqr();
+let getPythagoras = (a,b) => ( (a**2) + (b**2) ).sqr();
 
 
-class Phys extends Number {
+class Phys {
     static atomic_mass            = new this( 1.66055,   -27, 'kg');
-    static avogadro_number        = new this( 6.02205,    26, 'kmol⁻¹');
-    static boltzmann_const        = new this( 1.38066,   -23, 'JK⁻¹');
-    static elemental_charge       = new this( 1.602189,  -19, 'As');
-    static gas_const              = new this( 8314.3,      0, 'JK⁻¹kmol⁻¹');
-    static grav_const             = new this( 6.672,     -11, 'Nm²kg⁻²');
-    static induction_const        = new this( 1.2566,    - 6, 'VsA⁻¹m⁻¹');
-    static dielectric_const       = new this( 8.8542,    -12, 'AsV⁻¹m⁻¹');
-    static lightspeed_vacuum      = new this( 299792458,   0, 'ms⁻¹');
     static electron_mass          = new this( 9.10953,   -31, 'kg');
     static neutron_mass           = new this( 1.67482,   -27, 'kg');
     static proton_mass            = new this( 1.67261,   -27, 'kg');
+    static avogadro_number        = new this( 6.02205,    26, 'kmol⁻¹');
+    static boltzmann_const        = new this( 1.38066,   -23, 'JK⁻¹');
+    static elemental_charge       = new this( 1.602189,  -19, 'As');
+    static gas_const              = new this( 8.3143,      4, 'JK⁻¹kmol⁻¹');
+    static grav_const             = new this( 6.672,     -11, 'Nm²kg⁻²');
+    static induction_const        = new this( 1.2566,    - 6, 'VsA⁻¹m⁻¹');
+    static dielectric_const       = new this( 8.8542,    -12, 'AsV⁻¹m⁻¹');
+    static lightspeed_vacuum      = new this( 2.99792458,  9, 'ms⁻¹'); // expands Number.MAX_SAFE_INTEGER in calculations otherwise therefore written as c*10e9
     static planck_const           = new this( 6.626176,  -34, 'Js');
     static stefan_boltzmann_const = new this( 5.6073,    - 8, 'Wm⁻²K⁻⁴');
 
-    unit = ''
-    constructor(value = 0, decimal_precision = 0, unit=''){
-        super(value || 0);
+    constructor(value = 0, decimal_precision = 1, unit=''){
+        this.value = value || 0;
         this.unit = unit || '';
-        this.decimal_precision = decimal_precision;
+        this.decimal_precision = decimal_precision || 1;
     }
+    convNumber2Phys(n=0){ n=n||0; n=Object.getPrototypeOf(n) == Object.getPrototypeOf(new Phys())?n:new Phys(n); return n; }
+    multi(p = new Phys()){ p=this.convNumber2Phys(p); return new Phys(this.value*p.value,this.decimal_precision+p.decimal_precision,`${this.unit}${p.unit}`); }
+    quad(){ return this.multi(this); }
+    sqr(){ this.value = this.value.sqr(); this.unit = `√(${this.unit})`; return this; }
 }
-
-
-
